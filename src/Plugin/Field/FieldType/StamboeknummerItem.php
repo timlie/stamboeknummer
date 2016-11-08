@@ -11,7 +11,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *
  * @FieldType(
  *   id = "stamboeknummer",
- *   label = @Translation("Stamboeknummer for education"),
+ *   label = @Translation("Stamboeknummer"),
  *   description = @Translation("Stamboeknummer field for education employees."),
  *   category = @Translation("Custom"),
  *   default_widget = "stamboeknummer_default_widget",
