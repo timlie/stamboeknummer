@@ -30,10 +30,8 @@ class StamboeknummerDefaultWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $value = isset($items[$delta]->value) ? $items[$delta]->value : '';
     $element += array(
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#default_value' => $value,
-      '#size' => 11,
-      '#maxlength' => 11,
     );
 
     return array('value' => $element);
