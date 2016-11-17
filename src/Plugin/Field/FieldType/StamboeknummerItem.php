@@ -78,6 +78,7 @@ class StamboeknummerItem extends FieldItemBase {
             '%max' => 29999999999,
           )),
         ),
+        'Modulo' => array(),
       ),
     ));
 
