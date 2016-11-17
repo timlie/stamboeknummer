@@ -34,6 +34,7 @@ class StamboeknummerItem extends FieldItemBase {
           'type' => 'int',
           'size' => 'big',
           'not null' => FALSE,
+          'unsigned' => TRUE,
         ),
       ),
     );
@@ -48,10 +49,39 @@ class StamboeknummerItem extends FieldItemBase {
    * Here there is a list of allowed property types: https://goo.gl/sIBBgO
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['value'] = DataDefinition::create('integer')
+    $properties['value'] = DataDefinition::create('biginteger')
       ->setLabel(t('Stamboeknummer value'));
 
     return $properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConstraints() {
+    $constraints = parent::getConstraints();
+
+    // If this is an unsigned integer, add a validation constraint for the
+    // integer to be positive.
+    $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
+    $constraints[] = $constraint_manager->create('ComplexData', array(
+      'value' => array(
+        'Range' => array(
+          'min' => 10000000000,
+          'minMessage' => t('%name: The stamboeknummer must be larger or equal to %min.', array(
+            '%name' => $this->getFieldDefinition()->getLabel(),
+            '%min' => 10000000000,
+          )),
+          'max' => 29999999999,
+          'maxMessage' => t('%name: The stamboeknummer must be smaller or equal to %max.', array(
+            '%name' => $this->getFieldDefinition()->getLabel(),
+            '%max' => 29999999999,
+          )),
+        ),
+      ),
+    ));
+
+    return $constraints;
   }
 
   /**
